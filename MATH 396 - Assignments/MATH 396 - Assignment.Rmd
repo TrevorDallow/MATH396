@@ -1,0 +1,106 @@
+---
+title: "MATH 396 - Assignment"
+author: "Trevor Dallow"
+date: "April 17, 2017"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Question 1
+Draw the bifurcation diagram for fa(x) = x^3 + ax. Make sure you indicate which segments correspond to stable and unstable periodic orbits. (Note: the bifurcation diagram contains all periodic points, not just the fixed points.)
+```{r}
+a = -1:1
+x = seq(from = -5, to = 5, by = 0.01)
+
+plot(x, x, type = "l", main = "f_a(x) = x^3+ax", ylab = "f")
+grid(nx = 2, ny = 2)
+
+f = function(a, x) {
+  x^3+a*x
+}
+
+for (i in 1:length(a)) {
+  lines(x, f(a[i], x), col = i + 1, lty = 1)
+}
+
+for (i in 1:length(a)) {
+  lines(x, f(a[i], f(a[i], x)), col = i + 1, lty = 2)
+}
+
+legend("topleft", c(paste0("f_", a), paste0("f^2_", a)), col = 2:(length(a) + 1), pch = c("_", "_", "_", "-", "-", "-"), title = "f_a(x)")
+```
+
+```{r}
+z<-outer(a,x,f)
+contour(a,x,z, levels = 0, xlab = "a", ylab = "p", main = "Partial Bifurcation Diagram")
+grid(nx = 2, ny = 2)
+```
+
+Plot partial bifurcation diagram and indicate segments that correspond to stable and unstable periodic orbits.
+
+Question 2
+...
+
+Question 3
+...
+
+Question 5
+Shadow Lines
+(a) Why is doesn't the diagram have points from the bottom (x = 0) to the top (x = 1)? 
+
+(b) Determine the curves where there is a higher density of points in the final state diagram and plot them. 
+
+Let v_a = f_a(0.5) denote the upper bpoundary of the final state diagram of the logistic equation, as well as the highest peak in the density histogram. Further, let f_a(v_a), f_a^2(v_a), f_a^3(v_a) the curves of the next highest peaks in the density histogram. The reason for the prominance of these points is that the peaks of the density histogram indicate the points that define the shadow lines. 
+```{r}
+a = seq(from = 0, to = 4, by = .001)
+x = .5
+n = 5
+f = a*x*(1-x)
+plot(a, f, type = 'n', xlim = c(3,4), ylim = c(0,1), main = "Shadow Lines of Logistic Equation")
+for (i in 1:n) {
+  lines(a, f, col = i)
+  f = a*f*(1-f)
+}
+legend("bottomleft", c("f", paste0("f^", 2:n)), pch = "_", col = 1:n)
+```
+
+Question 8
+A dynamical system depends on a parameter a. Initially, you observe
+a steady state (i.e., a period 1 orbit). As a increases you observe a period 2 oscillation appearing at a = a[1] = 7. Then at a = a[2] = 10 you observe that the period 2 orbits splits into a period 4 orbit. As a continues to increase a series of period-doublings occurs. Assuming Universality, at what a value would you expect to observe the onset of chaos? ('Assuming Universality' means assuming that the system will go through a series of period-doubling bifurcations as the parameter a changes, and that the distance (in a) between bifurcations is given by the Feigenbaum constant.)
+
+Observed chaos can be expected to happen when a exceeds the Figenbaum constant a_inf. Also we know that the rate at which bifurcations occur is the same for many dynamical systems, so assuming that this system behaves similarily to the logistic equation, we may use the rates at which the logistic equation bifurcates to help us determine the value that we expect to see observed chaos.
+```{r}
+a = matrix(NA, nrow = 7)
+p = matrix(NA, nrow = 7)
+d = matrix(NA, nrow = 7)
+r = matrix(NA, nrow = 7)
+
+a[2] = 7
+a[3] = 10
+p[1] = 1
+d[3] = a[3] - a[2]
+r[3] = 4.7514
+r[4] = 4.6562
+r[5] = 4.6682
+r[6] = 4.6687
+r[7] = 4.6693
+for (i in 2:length(p)) {
+  p[i] = p[i - 1] * 2
+}
+
+for (i in 4:length(r)) {
+  d[i] = (1 / r[i]) * d[i - 1]
+  a[i] = d[i] + a[i - 1]
+}
+
+BifPointTab = cbind(a, p, d, r)
+colnames(BifPointTab) = c("Bifurcation Point", "Period", "Difference", "Ratio")
+BifPointTab
+
+print(paste0("Approx. value of a where chaos can be observed: ~", BifPointTab[7, 1]))
+```
+
+We need more ratios and further analysis to find a better approximation than ~10.8182, the true value would be slightly larger than this value.
