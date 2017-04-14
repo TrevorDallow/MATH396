@@ -11,11 +11,26 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Question 1
 Draw the bifurcation diagram for fa(x) = x^3 + ax. Make sure you indicate which segments correspond to stable and unstable periodic orbits. (Note: the bifurcation diagram contains all periodic points, not just the fixed points.)
+
+f' = 3x^2 + a
+
+Solve:
+f' = 1  => 3x^2 + a = 1
+f = x   => x^3 + ax
+
+a = 1, x = 0
+
+When a >= 1, there is one fixed point, when a < 1, there are 3 fixed points, there are no other periodic points. As lim a -> 1^-, two fixed points merge towards a third fixed point at x = 0 at the ciritical value (bifurcation point) a = 1. Continuing to increase a from 1 yields no change in the position of the fixed point. 
+
+When a = 1, there is one fixed point, of neither stability.
+When a > 1, there is one unstable, fixed point.
+When a < 1 there is one stable fixed point (at x = 0) and two unstable fixed points. 
+
 ```{r}
 a = -1:1
-x = seq(from = -5, to = 5, by = 0.01)
+x = seq(from = -2, to = 2, by = .01)
 
-plot(x, x, type = "l", main = "f_a(x) = x^3+ax", ylab = "f")
+plot(x, x, type = "l", main = "x^3+ax for various a and degrees", ylab = "f")
 grid(nx = 2, ny = 2)
 
 f = function(a, x) {
@@ -30,7 +45,7 @@ for (i in 1:length(a)) {
   lines(x, f(a[i], f(a[i], x)), col = i + 1, lty = 2)
 }
 
-legend("topleft", c(paste0("f_", a), paste0("f^2_", a)), col = 2:(length(a) + 1), pch = c("_", "_", "_", "-", "-", "-"), title = "f_a(x)")
+legend("topleft", c(paste0("a(", a, ") n(1)"), paste0("a(", a, ") n(2)")), col = 2:(length(a) + 1), pch = c("_", "_", "_", "-", "-", "-"), title = "f^n_a")
 ```
 
 ```{r}
@@ -54,11 +69,16 @@ Question 2
 ...
 
 Question 3
-...
+Refer to Chapter 2 notes (pages 10,11) to prove that if a is a bifurcation point of fa(x), then dxfa(x) = 1 at a = -a; x = p_-a (here we write the fixed point as p(a) to exhibit its dependence on a). 
+
+Also, at a period doubling bifurcation point -a of f_a, that necessarily dxf_a(x) = -1 at a = -a, x = p_-a. And note that this is what we observe
+graphically (see the notes page 4 Lecture 2 and page 28 of the presentation that is posted in the 'Lectures' folder on Canvas (at the top!).
 
 Question 5
 Shadow Lines
-(a) Why is doesn't the diagram have points from the bottom (x = 0) to the top (x = 1)? 
+(a) Why doesn't the diagram have points from the bottom (x = 0) to the top (x = 1)? That is, although fa(x) is defined on the entire interval [0, 1], we only see points in the final state diagram in a smaller subinterval.
+
+The diagram is not defined over the entirety of its interval [0, 1] because the maximal value for the logistic equation is a/4 for varying a [0, 4]. No points exist in the diagram for values > a/4. As well, no points exist below a lower boundary of f(v_a) where v_a = f(0.5) for te logistic equation.
 
 (b) Determine the curves where there is a higher density of points in the final state diagram and plot them. 
 
@@ -73,7 +93,7 @@ for (i in 1:n) {
   lines(a, f, col = i)
   f = a*f*(1-f)
 }
-legend("bottomleft", c("f", paste0("f^", 2:n)), pch = "_", col = 1:n)
+legend("bottomleft", c("v", paste0("f^", 1:(n-1))), pch = "_", col = 1:n)
 ```
 
 Question 8
