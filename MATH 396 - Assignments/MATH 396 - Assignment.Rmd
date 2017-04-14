@@ -34,9 +34,18 @@ legend("topleft", c(paste0("f_", a), paste0("f^2_", a)), col = 2:(length(a) + 1)
 ```
 
 ```{r}
-z<-outer(a,x,f)
-contour(a,x,z, levels = 0, xlab = "a", ylab = "p", main = "Partial Bifurcation Diagram")
+a = seq(from = -5, to = 5, by = 0.1)
+
+f2 = function(a, x) {
+  f(a,x)^3+a*f(a,x)
+}
+
+z<-outer(a, x, f)
+contour(a,x,z, nlevels = 0, xlab = "a", ylab = "p", main = "Partial Bifurcation Diagram", drawlabels = F, col = 1)
+z2<-outer(a, x, f2)
+contour(a, x, z2, nlevels = 0, xlab = "a", ylab = "p", main = "Partial Bifurcation Diagram", add = T, drawlabels = F, col = 2)
 grid(nx = 2, ny = 2)
+legend("topright", c("f^1", "f^2"), pch = "_", col = 1:2)
 ```
 
 Plot partial bifurcation diagram and indicate segments that correspond to stable and unstable periodic orbits.
@@ -104,3 +113,6 @@ print(paste0("Approx. value of a where chaos can be observed: ~", BifPointTab[7,
 ```
 
 We need more ratios and further analysis to find a better approximation than ~10.8182, the true value would be slightly larger than this value.
+
+
+
