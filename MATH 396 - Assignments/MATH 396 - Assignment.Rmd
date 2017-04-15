@@ -71,8 +71,30 @@ Question 2
 Question 3
 Refer to Chapter 2 notes (pages 10,11) to prove that if a is a bifurcation point of fa(x), then dxfa(x) = 1 at a = -a; x = p_-a (here we write the fixed point as p(a) to exhibit its dependence on a). 
 
+Let p_-a be a fixed point of f_a when a = -a and assume f_a(x) is differentiable in both x and a at (-a, p_-a).
+Given that -a is a bifurcation point of f_a(x), suppose dxf_a(x) =/= 1 at a = -a, x = p_-a. 
+We know that, inorder for -a tobe a bifurcation point of f_a(x), the following two conditions must hold:
+  dxf_a =1,
+  f_a = x
+So it must be the case that
+  dx f_a = 1 and f_a = x at a = -a, x = p_-a
+But if -a is a bifurction point, it must be the case that dxf_a = 1 at a = -a, x = p_-a and so we have a contradiction.
+Thus dxf_a = 1 at a = -a, x = p_-a when -a is a bifurcation point. 
+
 Also, at a period doubling bifurcation point -a of f_a, that necessarily dxf_a(x) = -1 at a = -a, x = p_-a. And note that this is what we observe
 graphically (see the notes page 4 Lecture 2 and page 28 of the presentation that is posted in the 'Lectures' folder on Canvas (at the top!).
+
+Now, suppose -a is a period doubling bifurcation point of f_a. 
+We wish to show that dxf_a = -1 at a = -a, x = p_-a.
+If -a is a period doubling bifurcation point of f_a, it must be the case that:
+  dxf^2_a = 1, 
+  f^2_a = x
+Since the period 1 point remains throughout bifurcation, 
+  dxf_a =/= 1
+And so
+  dxf^2_-a = 1 => dxf_a = +- 1 (since dxf^2_a = (dxf_a)^2 and 1 = (+-1)^2)
+But since dxf^k_a =/= (where k is some integer > 1), it must be the case that dxf_a = -1 at a = -a, x = p_-a.
+Thus dxfa = -1 at a period doubling bifurcation point a = -a, x = p_-a.
 
 Question 5
 Shadow Lines
