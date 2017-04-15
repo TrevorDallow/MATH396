@@ -48,25 +48,101 @@ for (i in 1:length(a)) {
 legend("topleft", c(paste0("a(", a, ") n(1)"), paste0("a(", a, ") n(2)")), col = 2:(length(a) + 1), pch = c("_", "_", "_", "-", "-", "-"), title = "f^n_a")
 ```
 
+Question 2
+Use the octal decomposition given in the notes (Ch 1) to classify the orbit topology near a fixed point. Use our convention of Li (Rj) indicating the ith point in the orbit on the left (respectively right) of the fixed point, and a < b (a > b) to indicate that the point a is closer to the fixed point (p) than b (respectively, a is further from the fixed point than b). You will not be able to unambiguously classify all (16) cases, but explain why not.
+
 ```{r}
-a = seq(from = -5, to = 5, by = 0.1)
-
-f2 = function(a, x) {
-  f(a,x)^3+a*f(a,x)
-}
-
-z<-outer(a, x, f)
-contour(a,x,z, nlevels = 0, xlab = "a", ylab = "p", main = "Partial Bifurcation Diagram", drawlabels = F, col = 1)
-z2<-outer(a, x, f2)
-contour(a, x, z2, nlevels = 0, xlab = "a", ylab = "p", main = "Partial Bifurcation Diagram", add = T, drawlabels = F, col = 2)
+x = -1:1
+plot(x, x, type ="l", xaxt = "n", yaxt = "n", xlab = "", ylab = "", main = "Octant Decomposition")
+lines(x, -x)
 grid(nx = 2, ny = 2)
-legend("topright", c("f^1", "f^2"), pch = "_", col = 1:2)
 ```
 
-Plot partial bifurcation diagram and indicate segments that correspond to stable and unstable periodic orbits.
+Let us first examine a few of the unambiguous cases.
+I: Region {a, d}
+x_0 lies in a: L_1 < L_2 < L_3 < ...
+            d: R_1 > R_2 > R_3 > ... -> p
+Orbit staircases out from p if x_0 lies in a
+                  into p if x_0 lies in d
+The orbit about a fixed point p in this region is not stable
 
-Question 2
-...
+II: Region {a, e}
+x_0 lies in a: L_1 < L_2 < L_3 < ...
+            e: R_1 < R_2 < R_3 < ...
+Orbit staircases out from p
+The orbit about a fixed point p in this region is unstable
+
+III: Region {h, d}
+x_0 lies in h: L_1 > L_2 > L_3 > ... -> p
+            d: R_1 > R_2 > R_3 > ... -> p
+Orbit staircases into p
+The orbit about a fixed point p in this region is stable
+
+IV: Region {h, e}
+x_0 lies in a: L_1 > L_2 > L_3 > ... -> p
+            d: R_1 < R_2 < R_3 < ...
+Orbit staircases into p if x_0 lies in h
+                out from p if x_0 lies in e
+The orbit about a fixed point p in this region is not stable
+
+```{r, fig.height=8, fig.width=8}
+par(mfrow = c(2, 2), mar = rep(.2, 4))
+for (i in 1:16) {
+  plot(x, x, type ="l", xaxt = "n", yaxt = "n", xlab = "", ylab = "")
+  lines(x, -x)
+  grid(nx = 2, ny = 2)
+}
+```
+
+For regions {f, c} and {g, b} cannot be classified unambiguously, orbital behaviour varies for an arbitrary function even if the function lies within the same region. Further decomposition is needed, new sections defined by the lines -x/2 and -2x help classify cases within the two regions listed. 
+
+```{r}
+plot(x, x, type ="l", xaxt = "n", yaxt = "n", xlab = "", ylab = "", main = "Further Decomposition")
+lines(x, -x)
+lines(x, -2*x)
+lines(x, -x/2)
+grid(nx = 2, ny = 2)
+```
+
+1: Region {g, b} Case 1
+L_1 < R_1 < L_2 < ...
+Orbit spirals out from p
+The orbit about a fixed point p in this region is unstable
+            
+2: Region {g, b} Case 2
+L_1 = R_1 < L_1 = ...
+Orbit spirals around p, neither approaching nor moving away from the fixed point
+The orbit about a fixed point p in this region is not stable
+  
+3: Region {f, c} Case 1
+L_1 < R_1 < L_2 < ...
+Orbit spirals out from p
+The orbit about a fixed point p in this region is unstable
+            
+4: Region {f, c} Case 2
+L_1 > R_1 > L_2 > ... -> p
+Orbit spirals into p
+The orbit about a fixed point p in this region is stable
+            
+```{r}
+par(mfrow = c(2, 2), mar = rep(1.5, 4))
+
+for (i in 1:2) {
+  plot(c(-1, 1), c(-1, 1), type ="l", xaxt = "n", yaxt = "n", xlab = "", ylab = "", main = "Further Decomposition {g, b}")
+  lines(c(-1, 1), -c(-1, 1))
+  lines(c(0, 1), -2*c(0, 1))
+  lines(c(-1, 0), -c(-1, 0)/2)
+  grid(nx = 2, ny = 2)
+
+  plot(c(-1, 1), c(-1, 1), type ="l", xaxt = "n", yaxt = "n", xlab = "", ylab = "", main = "Further Decomposition {f, c}")
+  lines(c(-1, 1), -c(-1, 1))
+  lines(c(-1, 0), -2*c(-1, 0))
+  lines(c(0, 1), -c(0, 1)/2)
+  grid(nx = 2, ny = 2)
+}
+
+```
+
 
 Question 3
 Refer to Chapter 2 notes (pages 10,11) to prove that if a is a bifurcation point of fa(x), then dxfa(x) = 1 at a = -a; x = p_-a (here we write the fixed point as p(a) to exhibit its dependence on a). 
