@@ -87,7 +87,7 @@ The orbit about a fixed point p in this region is not stable
 
 ```{r, fig.height=8, fig.width=8}
 par(mfrow = c(2, 2), mar = rep(.2, 4))
-for (i in 1:16) {
+for (i in 1:4) {
   plot(x, x, type ="l", xaxt = "n", yaxt = "n", xlab = "", ylab = "")
   lines(x, -x)
   grid(nx = 2, ny = 2)
@@ -104,25 +104,25 @@ lines(x, -x/2)
 grid(nx = 2, ny = 2)
 ```
 
-1: Region {g, b} Case 1
-L_1 < R_1 < L_2 < ...
-Orbit spirals out from p
-The orbit about a fixed point p in this region is unstable
-            
-2: Region {g, b} Case 2
-L_1 = R_1 < L_1 = ...
+I: Region {g, b} Case 1
+L_1 = R_1 = L_1 = ...
 Orbit spirals around p, neither approaching nor moving away from the fixed point
 The orbit about a fixed point p in this region is not stable
-  
-3: Region {f, c} Case 1
-L_1 < R_1 < L_2 < ...
-Orbit spirals out from p
-The orbit about a fixed point p in this region is unstable
             
-4: Region {f, c} Case 2
+II: Region {g, b} Case 2
 L_1 > R_1 > L_2 > ... -> p
 Orbit spirals into p
 The orbit about a fixed point p in this region is stable
+  
+III: Region {f, c} Case 1
+L_1 = R_1 = L_1 = ...
+Orbit spirals around p, neither approaching nor moving away from the fixed point
+The orbit about a fixed point p in this region is not stable
+            
+IV: Region {f, c} Case 2
+L_1 < R_1 < L_2 < ...
+Orbit spirals out from p
+The orbit about a fixed point p in this region is unstable
             
 ```{r}
 par(mfrow = c(2, 2), mar = rep(1.5, 4))
