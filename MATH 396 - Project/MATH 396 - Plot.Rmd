@@ -1,0 +1,52 @@
+---
+title: "MATH 396 - Project"
+author: "Trevor Dallow"
+date: "April 17, 2017"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, fig.height=5, fig.width=5}
+x = c(-1, 1)
+plot(x, x, type ="l", xaxt = "n", yaxt = "n", xlab = "", ylab = "", main = "Octant Decomposition")
+lines(x, -x)
+lines(c(0, 0), x)
+lines(x, c(0, 0))
+```
+
+
+```{r, fig.height=9, fig.width=9}
+x = c(-1, 1)
+par(mfrow = c(4, 4), mar = rep(1, 4))
+for (i in 1:14) {
+  plot(x, x, type ="l", xaxt = "n", yaxt = "n", xlab = "", ylab = "", main = paste0("Octant Decomp. Case: ", as.roman(i)))
+  lines(x, -x)
+  lines(c(0, 0), x)
+  lines(x, c(0, 0))
+}
+```
+
+```{r, fig.height=8, fig.width=8}
+plot(x, x, type ="l", xaxt = "n", yaxt = "n", xlab = "", ylab = "", main = "Further Decomposition")
+lines(x, -x)
+lines(x, -2*x)
+lines(x, -x/2)
+lines(c(0, 0), x)
+lines(x, c(0, 0))
+```
+
+```{r, fig.height=10, fig.width=5}
+par(mfrow = c(4, 2), mar = rep(1, 4))
+for (i in 1:8) {
+  plot(x, x, type ="l", xaxt = "n", yaxt = "n", xlab = "", ylab = "", main = paste0("Further Decomp. Case: ", as.roman(i)))
+  lines(x, -x)
+  lines(x, -2*x)
+  lines(x, -x/2)
+  lines(c(0, 0), x)
+  lines(x, c(0, 0))
+}
+```
+
