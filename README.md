@@ -1,5 +1,3 @@
 # MATH396
- 
- COursework suppository for the Spring 2017 ofering of MATH 396 - Dynamical Systems at simon fraser university.
- 
- Repository includes clas assignmen and Final project.
+
+The coursework repository for the Spring 2017 offering of MATH 396 (Dynamical Systems). Course was taken at the Burnaby campus of Simon Fraser University. Class assignments and a final project are included.
